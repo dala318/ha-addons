@@ -68,8 +68,12 @@ else
 fi
 
 if [ "$MQTT_ON" = false ]; then
-    read -n 1 -s -r -p "Press any key to exit..."
-    echo "Exiting!"
+    while true; do
+        echo "AAA"
+        sleep 60
+    done
+    # read -n 1 -s -r -p "Press any key to exit..."
+    # echo "Exiting!"
     exit 0
 fi
 
