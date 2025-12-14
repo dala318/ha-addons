@@ -40,6 +40,6 @@ schema:
   gpsd_options: str?
   debug: bool?
 ports:
-  2947/tcp: null
+  2947/tcp: 2947
 devices:
   - /dev/pps0
