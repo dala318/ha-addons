@@ -38,7 +38,6 @@ fi
 # Check if mqtt username is set, if not get it from Home Assistant via bashio::services
 if [ "$MQTT_ON" = false ]; then
     echo "Skipping MQTT user config"
-    GPSD_OPTIONS="${GPSD_OPTIONS} --nowait --listenany --readonly"
 elif bashio::config.is_empty 'mqtt_username' && bashio::var.has_value "$(bashio::services 'mqtt')"; then
     MQTT_USER="$(bashio::services 'mqtt' 'username')"
     MQTT_PASSWORD="$(bashio::services 'mqtt' 'password')"
@@ -52,7 +51,7 @@ fi
 if [ "$INPUT_TYPE" = "serial" ]; then
     echo "Setting up serial device with the following: ${DEVICE} ${BAUDRATE} cs${CHARSIZE} ${STOPBIT_CL} ${PARITY_CL} ${CONTROL}"
     /bin/stty -F ${DEVICE} raw ${BAUDRATE} cs${CHARSIZE} ${PARITY_CL} ${CONTROL} ${STOPBIT_CL}
-    echo "Starting GPSD with serial device \"${DEVICE}\"..."
+    echo "Starting GPSD with serial device \"${DEVICE}\" with option \""${GPSD_OPTIONS}\"..."
     /usr/sbin/gpsd --version
     /usr/sbin/gpsd ${GPSD_OPTIONS} -s ${BAUDRATE} ${DEVICE}
 elif [ "$INPUT_TYPE" = "tcp" ]; then
