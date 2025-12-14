@@ -19,6 +19,8 @@ MQTT_USER=$(bashio::config 'mqtt_username')
 MQTT_PASSWORD=$(bashio::config 'mqtt_pw')
 HA_AUTH=false
 
+echo "MQTT_ON is ${MQTT_ON}"
+
 # stty expects -parenb to disable parity
 if [ "$PARITY" = false ]; then
   PARITY_CL="-parenb"
