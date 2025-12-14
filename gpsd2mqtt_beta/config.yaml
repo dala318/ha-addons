@@ -16,6 +16,7 @@ services:
 options:
   input_type: serial
   device: "/dev/ttyS0"
+  mqtt_on: true
   publish_3d_fix_only: true
 schema:
   input_type: list(serial|tcp)
@@ -30,6 +31,7 @@ schema:
   min_n_satellites: int?
   publish_interval: int?
   summary_interval: int?
+  mqtt_on: bool?
   mqtt_broker: str?
   mqtt_port: int?
   mqtt_username: str?

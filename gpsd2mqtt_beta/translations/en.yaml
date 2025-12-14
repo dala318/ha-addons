@@ -12,6 +12,9 @@ configuration:
   tcp_port:
     name: TCP Port
     description: Optional, only if device type tcp is selected. Select the port used to connect to the TCP socket on the host specified above. 
+  mqtt_on:
+    name: Start MQTT translator
+    description: If not set only the gpsd deamon will be started, no MQTT forwarding. For using built-in Home Assistant GPSD integration.
   mqtt_broker:
     name: MQTT Server IP or Hostname
     description: If not configured it will default to use the internal MQTT broker, addon must be installed.

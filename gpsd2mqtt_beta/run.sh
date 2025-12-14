@@ -7,13 +7,14 @@ DEVICE=$(bashio::config 'device')
 TCP_HOST=$(bashio::config 'tcp_host')
 TCP_PORT=$(bashio::config 'tcp_port')
 BAUDRATE=$(bashio::config 'baudrate' 9600)
-GPSD_OPTIONS=$(bashio::config 'gpsd_options') 
+GPSD_OPTIONS=$(bashio::config 'gpsd_options')
 GPSD_OPTIONS="${GPSD_OPTIONS} --nowait --readonly --listenany"
 GPSD_SOCKET="-F /var/run/gpsd.sock"
 CHARSIZE=$(bashio::config 'charsize' 8)
 PARITY=$(bashio::config 'parity' false)
 STOPBIT=$(bashio::config 'stopbit' 1)
 CONTROL="clocal"
+MQTT_ON=$(bashio::config 'mqtt_on' true)
 MQTT_USER=$(bashio::config 'mqtt_username')
 MQTT_PASSWORD=$(bashio::config 'mqtt_pw')
 HA_AUTH=false
@@ -32,9 +33,11 @@ elif [ "$STOPBIT" -eq 2 ]; then
   STOPBIT_CL="cstopb"
 fi
 
-
 # Check if mqtt username is set, if not get it from Home Assistant via bashio::services
-if bashio::config.is_empty 'mqtt_username' && bashio::var.has_value "$(bashio::services 'mqtt')"; then
+if [ "$MQTT_ON" = false ]; then
+    echo "Skipping MQTT user config"
+    GPSD_OPTIONS="${GPSD_OPTIONS} --nowait --listenany --readonly"
+elif bashio::config.is_empty 'mqtt_username' && bashio::var.has_value "$(bashio::services 'mqtt')"; then
     MQTT_USER="$(bashio::services 'mqtt' 'username')"
     MQTT_PASSWORD="$(bashio::services 'mqtt' 'password')"
     HA_AUTH=true
@@ -63,6 +66,11 @@ else
     exit 1
 fi
 
+if [ "$MQTT_ON" = false ]; then
+    read -n 1 -s -r -p "Press any key to exit..."
+    echo "Exiting!"
+    exit 0
+
 #echo "Checking device settings"
 #/usr/bin/gpsctl
 
@@ -72,7 +80,7 @@ if [ $HA_AUTH = true ]; then
     else
     echo "Starting MQTT Publisher with username ${MQTT_USER} ... "
 fi
-    
+
 python /gpsd2mqtt.py ${MQTT_USER} ${MQTT_PASSWORD}
 
 
