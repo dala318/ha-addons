@@ -51,7 +51,7 @@ fi
 if [ "$INPUT_TYPE" = "serial" ]; then
     echo "Setting up serial device with the following: ${DEVICE} ${BAUDRATE} cs${CHARSIZE} ${STOPBIT_CL} ${PARITY_CL} ${CONTROL}"
     /bin/stty -F ${DEVICE} raw ${BAUDRATE} cs${CHARSIZE} ${PARITY_CL} ${CONTROL} ${STOPBIT_CL}
-    echo "Starting GPSD with serial device \"${DEVICE}\" with option \""${GPSD_OPTIONS}\"..."
+    echo "Starting GPSD with serial device \"${DEVICE}\" with option \"${GPSD_OPTIONS}\"..."
     /usr/sbin/gpsd --version
     /usr/sbin/gpsd ${GPSD_OPTIONS} -s ${BAUDRATE} ${DEVICE}
 elif [ "$INPUT_TYPE" = "tcp" ]; then
@@ -81,7 +81,6 @@ if [ $HA_AUTH = true ]; then
     else
     echo "Starting MQTT Publisher with username ${MQTT_USER} ... "
 fi
-
 python /gpsd2mqtt.py ${MQTT_USER} ${MQTT_PASSWORD}
 
 
