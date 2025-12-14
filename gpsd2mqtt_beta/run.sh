@@ -7,7 +7,7 @@ DEVICE=$(bashio::config 'device')
 TCP_HOST=$(bashio::config 'tcp_host')
 TCP_PORT=$(bashio::config 'tcp_port')
 BAUDRATE=$(bashio::config 'baudrate' 9600)
-GPSD_OPTIONS=$(bashio::config 'gpsd_options')
+GPSD_OPTIONS=$(bashio::config 'gpsd_options' '')
 GPSD_OPTIONS="${GPSD_OPTIONS} --nowait --readonly --listenany"
 GPSD_SOCKET="-F /var/run/gpsd.sock"
 CHARSIZE=$(bashio::config 'charsize' 8)
@@ -71,6 +71,7 @@ if [ "$MQTT_ON" = false ]; then
     read -n 1 -s -r -p "Press any key to exit..."
     echo "Exiting!"
     exit 0
+fi
 
 #echo "Checking device settings"
 #/usr/bin/gpsctl
