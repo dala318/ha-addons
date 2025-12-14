@@ -1,5 +1,8 @@
 # Changelog
 
+## [2025.12.0b1] - 2025-12-14
+- Add option to run deamon without MQTT
+
 ## [2025.7.0b5] - 2025-08-06
 - Add option to connect to TCP based device for GPS data
 - Upgrade to version 3.26.1 of GPSD
