@@ -4,7 +4,7 @@ description: >-
   Remember to install Mosquitto or another broker before setting up this addon.
 
   Installation requires you to set up a username and password to publish to MQTT. Also you must select the serial device for GPSD in configuration.
-url: https://github.com/corvy/ha-addons/tree/main/gpsd2mqtt_beta
+url: https://github.com/dala318/ha-addons/tree/main/gpsd2mqtt_beta
 version: "2025.12.0b1"
 slug: "gpsd2mqtt_beta"
 init: false
