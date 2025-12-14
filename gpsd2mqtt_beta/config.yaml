@@ -43,4 +43,4 @@ ports:
   2947/tcp: null
 devices:
   - /dev/pps0
-image: ghcr.io/corvy/{arch}-addon-gpsd2mqtt-beta
+image: ghcr.io/dala318/{arch}-addon-gpsd2mqtt-beta
